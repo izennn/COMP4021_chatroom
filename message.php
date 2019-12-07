@@ -122,9 +122,9 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             var startPos = contentStr.indexOf("http://");
             if (startPos >= 0) {
                 console.log("startPos: " + startPos);
-                var linkLength= 0;
+                var linkLength = 0;
                 var url = "";
-                while (contentStr[startPos + linkLength] !== ' ')
+                while (contentStr[startPos + linkLength] !== ' ' && contentStr[startPos + linkLength] !== '\0')
                     linkLength++;
                 
                 console.log("linkLength: " + linkLength);
