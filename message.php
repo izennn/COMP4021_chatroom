@@ -67,6 +67,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
         function stateChange() {
             if (request.readyState == 4 && request.status == 200 && request.responseText) {
+                console.log('state change!')
                 var xmlDoc;
                 try {
                     xmlDoc =new XMLHttpRequest();
@@ -78,6 +79,8 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 datasize = request.responseText.length;
                 updateChat(xmlDoc);
                 getUpdate();
+            } else {
+                console.log("no stage change")
             }
         }
 
@@ -86,7 +89,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             var messages = xmlDoc.getElementsByTagName("message");
 
             // create a string for the messages
-            /* Add your code here */
             for (var i = prevMessagelen; i < messages.length; ++i) {
                 var username = messages[i].getAttribute('name');
                 var color = messages[i].getAttribute('color');
