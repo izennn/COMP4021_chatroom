@@ -89,7 +89,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 var color = messages[i].getAttribute("color");
                 showMessage(username, messages[i].textContent, color);
             }
-            prevMessageLen = messages.len;
+            prevMessageLen = messages.length;
         }
 
         function showMessage(nameStr, contentStr, color) {
