@@ -22,7 +22,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         var prevMessageLen = 0;
 
         function load() {
-            console.log("load");
+            console.log("At load, prevMessageLen: " + prevMessageLen);
             var username = document.getElementById("username");
             if (username.value == "") {
                 loadTimer = setTimeout("load()", 100);
@@ -56,7 +56,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         }
 
         function getUpdate() {
-            console.log("get update");
             //request = new ActiveXObject("Microsoft.XMLHTTP");
             request = new XMLHttpRequest();
             request.onreadystatechange = stateChange;
@@ -66,9 +65,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         }
 
         function stateChange() {
-            console.log("state change");
             if (request.readyState == 4 && request.status == 200 && request.responseText) {
-                console.log("entered state change if");
                 var xmlDoc;
                 var parser = new DOMParser();
                 xmlDoc = parser.parseFromString(request.responseText, "text/xml");
@@ -84,8 +81,8 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
             // create a string for the messages
             var i;
-            console.log("update chat prevMessageLen: " + prevMessageLen);
-            // if (prevMessageLen === undefined) prevMessageLen = 0;
+            // console.log("update chat prevMessageLen: " + prevMessageLen);
+            if (prevMessageLen === undefined) console.log('prev message len is null');
             for (i = prevMessageLen; i < messages.length; ++i) {
                 console.log("For loop inside update chat iteration " + i);
                 var username = messages[i].getAttribute("name");
@@ -96,7 +93,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         }
 
         function showMessage(nameStr, contentStr, color) {
-            console.log("show message");
             var node = document.getElementById("chattext");
             // Create the name text span
             var nameNode = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
