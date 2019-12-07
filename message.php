@@ -129,7 +129,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 
                 console.log("linkLength: " + linkLength);
                 // create link element
-                url = contentStr.substring(startPos, linkLength);
+                url = contentStr.substring(startPos, startPos + linkLength);
                 var link = document.createElementNS("http://www.w3.org/2000/svg", "a");
                 link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', url);
                 link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', "new");
