@@ -22,6 +22,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         var prevMessageLen;
 
         function load() {
+            console.log("load");
             var username = document.getElementById("username");
             if (username.value == "") {
                 loadTimer = setTimeout("load()", 100);
@@ -56,6 +57,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         }
 
         function getUpdate() {
+            console.log("get update");
             //request = new ActiveXObject("Microsoft.XMLHTTP");
             request = new XMLHttpRequest();
             request.onreadystatechange = stateChange;
@@ -65,6 +67,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         }
 
         function stateChange() {
+            console.log("state change");
             if (request.readyState == 4 && request.status == 200 && request.responseText) {
                 var xmlDoc;
                 var parser = new DOMParser();
@@ -76,6 +79,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         }
 
         function updateChat(xmlDoc) {
+            console.log("update chat");
             //point to the message nodes
             var messages = xmlDoc.getElementsByTagName("message");
 
@@ -88,59 +92,59 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             prevMessageLen = messages.len;
         }
 
-        function showMessage(nameStr, contentStr, color){
-               
-                var node = document.getElementById("chattext");
-                // Create the name text span
-                var nameNode = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+        function showMessage(nameStr, contentStr, color) {
+            console.log("show message");
+            var node = document.getElementById("chattext");
+            // Create the name text span
+            var nameNode = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
 
-                // Set the attributes and create the text
-                nameNode.setAttribute("x", 20);
-                nameNode.setAttribute("dy", 20);
-                nameNode.setAttribute("style", "fill:" + color);
-                nameNode.appendChild(document.createTextNode(nameStr));
+            // Set the attributes and create the text
+            nameNode.setAttribute("x", 20);
+            nameNode.setAttribute("dy", 20);
+            nameNode.setAttribute("style", "fill:" + color);
+            nameNode.appendChild(document.createTextNode(nameStr));
 
-                // Add the name to the text node
-                node.appendChild(nameNode);
+            // Add the name to the text node
+            node.appendChild(nameNode);
 
-                // Create the score text span
-                var contentNode = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+            // Create the score text span
+            var contentNode = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
 
-                // Set the attributes and create the text
-                contentNode.setAttribute("x", 100);
-                contentNode.setAttribute("style", "fill:" + color);
+            // Set the attributes and create the text
+            contentNode.setAttribute("x", 100);
+            contentNode.setAttribute("style", "fill:" + color);
 
-                // here, we need to add automatic hyperlink to the message if needed
+            // here, we need to add automatic hyperlink to the message if needed
+            
+            var startPos = contentStr.indexOf("http://");
+            if (startPos >= 0) {
+                var linkLength= 0;
+                var url = "";
+                while (contentStr[startPos + linkLength] !== ' ')
+                    linkLength++;
                 
-                var startPos = contentStr.indexOf("http://");
-                if (startPos >= 0) {
-                    var linkLength= 0;
-                    var url = "";
-                    while (contentStr[startPos + linkLength] !== ' ')
-                        linkLength++;
-                    
-                    // create link element
-                    url = contentStr.substr(startPos, linkLength);
-                    var link = document.createElementNS("http://www.w3.org/2000/svg", "a");
-                    link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', url);
-                    link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', "new");
-                    link.setAttribute("text-decoration", "underline");
-                    link.setAttribute("style", "fill:"+color);
-                    link.appendChild(document.createTextNode(linkStr));
+                // create link element
+                url = contentStr.substr(startPos, linkLength);
+                var link = document.createElementNS("http://www.w3.org/2000/svg", "a");
+                link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', url);
+                link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', "new");
+                link.setAttribute("text-decoration", "underline");
+                link.setAttribute("style", "fill:"+color);
+                link.appendChild(document.createTextNode(linkStr));
 
-                    // piece together the message string
-                    var firstPart = contentStr.substr(0, startPos);
-                    var lastPart = contentStr.substr(startPos + linkLength); 
+                // piece together the message string
+                var firstPart = contentStr.substr(0, startPos);
+                var lastPart = contentStr.substr(startPos + linkLength); 
 
-                    contentNode.appendChild(document.createTextNode(firstPart));
-                    contentNode.appendChild(link);
-                    contentNode.appendChild(document.createTextNode(firstPart));
-                } else {
-                    contentNode.appendChild(document.createTextNode(contentStr));                    
-                }
+                contentNode.appendChild(document.createTextNode(firstPart));
+                contentNode.appendChild(link);
+                contentNode.appendChild(document.createTextNode(firstPart));
+            } else {
+                contentNode.appendChild(document.createTextNode(contentStr));                    
+            }
 
-                // Add the name to the text node
-                node.appendChild(contentNode);
+            // Add the name to the text node
+            node.appendChild(contentNode);
         }
 
         //]]>
