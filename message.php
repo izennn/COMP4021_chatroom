@@ -19,10 +19,9 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         var loadTimer = null;
         var request;
         var datasize;
-        var lastMsgID;
+        var prevMessageLen;
 
         function load() {
-            console.log("Loaded!")
             var username = document.getElementById("username");
             if (username.value == "") {
                 loadTimer = setTimeout("load()", 100);
@@ -31,7 +30,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
             loadTimer = null;
             datasize = 0;
-            lastMsgID = 0;
+            prevMessageLen = 0;
             
             var node = document.getElementById("chatroom");
             node.style.setProperty("visibility", "visible", null);
@@ -88,12 +87,12 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
             // create a string for the messages
             /* Add your code here */
-            for (var i = lastMsgID; i < messages.length; ++i) {
+            for (var i = prevMessagelen; i < messages.length; ++i) {
                 var username = messages[i].getAttribute('name');
                 var color = messages[i].getAttribute('color');
                 showMessage(username, messages[i].textContent, color);
             }
-            lastMsgID = messages.len;
+            prevMessageLen = messages.len;
         }
 
         function showMessage(nameStr, contentStr, color){
@@ -118,10 +117,8 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 contentNode.setAttribute("x", 200);
                 contentNode.setAttribute("style", "fill:" + color);
 
-                // here, we need to add automatic hyperlink to the message
-                // 1. detect if there is 'http://' in the message **NOTE** what if there's more than one?
-                // 2. if so, we need to make it underlined, and a link to a new window
-
+                // here, we need to add automatic hyperlink to the message if needed
+                
                 var startPos = contentStr.indexOf("http://");
                 if (startPos >= 0) {
                     var linkLength= 0;

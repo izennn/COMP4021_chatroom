@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <chatroom>
   <users>
-    <user name="Nur"/>
-    <user name="Nur"/>
   </users>
   <messages>
-    <message name="Nur" color="black">Click http://google.com to find out more!</message>
-    <message name="Nur" color="yellow">Check out my website http://facebook.com</message>
   </messages>
 </chatroom>
