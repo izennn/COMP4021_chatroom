@@ -124,7 +124,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 console.log("startPos: " + startPos);
                 var linkLength = 0;
                 var url = "";
-                while (contentStr[startPos + linkLength] !== ' ' && contentStr[startPos + linkLength] !== '\0')
+                while (contentStr[startPos + linkLength] !== ' ' && linkLength < contentStr.length)
                     linkLength++;
                 
                 console.log("linkLength: " + linkLength);
@@ -144,7 +144,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 contentNode.appendChild(document.createTextNode(firstPart));
                 contentNode.appendChild(link);
                 contentNode.appendChild(document.createTextNode(lastPart));
-                console.log("contentNode: " + contentNode);
             } else {
                 contentNode.appendChild(document.createTextNode(contentStr));                    
             }
