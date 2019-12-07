@@ -135,7 +135,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', "new");
                 link.setAttribute("text-decoration", "underline");
                 link.setAttribute("style", "fill:"+color);
-                link.appendChild(document.createTextNode(linkStr));
+                link.appendChild(document.createTextNode(url));
 
                 // piece together the message string
                 var firstPart = contentStr.substring(0, startPos);
