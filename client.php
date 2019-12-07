@@ -23,19 +23,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 height: 50px;
             }
         </style>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
-            // $(document).ready(function() {
-            //     $("#logoutButton").click(function() {
-            //         console.log("Logout");
-            //         $.ajax({
-            //             type: "POST",
-            //             url: "logout.php",
-            //         }).done(function() {
-            //             alert('Logged Out!');
-            //         })
-            //     })
-            // })            
-        </script>
         <script type="text/javascript">
         //<![CDATA[
         function load() {

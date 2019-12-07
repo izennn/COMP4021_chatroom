@@ -121,19 +121,33 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 // here, we need to add automatic hyperlink to the message
                 // 1. detect if there is 'http://' in the message **NOTE** what if there's more than one?
                 // 2. if so, we need to make it underlined, and a link to a new window
-                $start_pos = strpos($contentStr, "http://");
-                if ($start_pos !== FALSE) {
-                    $link_length = 0;
-                    while ($contentStr[$start_pos + $link_length] !== ' ')
-                        $link_length++;
-                    $linkStr = substr($contentStr, $start_pos, $link_length);
-                    // append <a href=linkStr></a>in appropriate position
-                    $linkPart = '<a href="' . $linkStr . '">' . $linkStr . '</a>';
-                    $firstPart = substr($contentStr, 0, $start_pos);
-                    $lastPart = substr($contentStr, $start_pos + $linkLength);
-                    $contentStr = $firstPart . $linkPart .  $lastPart;
+
+                var startPos = contentStr.indexOf("http://");
+                if (startPos >= 0) {
+                    var linkLength= 0;
+                    var url = "";
+                    while (contentStr[startPos + linkLength] !== ' ')
+                        linkLength++;
+                    
+                    // create link element
+                    url = contentStr.substr(startPos, linkLength);
+                    var link = document.createElementNS("http://www.w3.org/2000/svg", "a");
+                    link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', url);
+                    link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', "new");
+                    link.setAttribute("text-decoration", "underline");
+                    link.setAttribute("style", "fill:"+color);
+                    link.appendChild(document.createTextNode(linkStr));
+
+                    // piece together the message string
+                    var firstPart = contentStr.substr(0, startPos);
+                    var lastPart = contentStr.substr(startPos + linkLength); 
+
+                    contentNode.appendChild(document.createTextNode(firstPart));
+                    contentNode.appendChild(link);
+                    contentNode.appendChild(document.createTextNode(firstPart));
+                } else {
+                    contentNode.appendChild(document.createTextNode(contentStr));                    
                 }
-                contentNode.appendChild(document.createTextNode(contentStr));
 
                 // Add the name to the text node
                 node.appendChild(contentNode);
@@ -144,23 +158,22 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
     </head>
 
     <body style="text-align: left" onload="load()" onunload="unload()">
-    <svg width="800px" height="2000px"
-     xmlns="http://www.w3.org/2000/svg"
-     xmlns:xhtml="http://www.w3.org/1999/xhtml"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     xmlns:a="http://www.adobe.com/svg10-extensions" a:timeline="independent"
-     >
+        <svg width="800px" height="2000px"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:a="http://www.adobe.com/svg10-extensions" a:timeline="independent"
+        >
 
-        <g id="chatroom" style="visibility:hidden; border: 1px solid red">                
-        <rect width="520" height="2000" style="fill:white;stroke:red;stroke-width:2"/>
-        <text x="260" y="40" style="fill:red;font-size:30px;font-weight:bold;text-anchor:middle">Chat Window</text> 
-        <text id="chattext" y="45" style="font-size: 20px;font-weight:bold"/>
-      </g>
-  </svg>
-  
-         <form action="">
+            <g id="chatroom" style="visibility:hidden; border: 1px solid red">                
+                <rect width="520" height="2000" style="fill:white;stroke:red;stroke-width:2"/>
+                <text x="260" y="40" style="fill:red;font-size:30px;font-weight:bold;text-anchor:middle">Chat Window</text> 
+                <text id="chattext" y="45" style="font-size: 20px;font-weight:bold"/>
+            </g>
+        </svg>
+    
+        <form action="">
             <input type="hidden" value="<?php print $name; ?>" id="username" />
         </form>
-
     </body>
 </html>
