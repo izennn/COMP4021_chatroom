@@ -22,7 +22,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         var prevMessageLen = 0;
 
         function load() {
-            console.log("At load, prevMessageLen: " + prevMessageLen);
             var username = document.getElementById("username");
             if (username.value == "") {
                 loadTimer = setTimeout("load()", 100);
@@ -81,10 +80,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
             // create a string for the messages
             var i;
-            // console.log("update chat prevMessageLen: " + prevMessageLen);
-            if (prevMessageLen === undefined) console.log('prev message len is null');
             for (i = prevMessageLen; i < messages.length; ++i) {
-                console.log("For loop inside update chat iteration " + i);
                 var username = messages[i].getAttribute("name");
                 var color = messages[i].getAttribute("color");
                 showMessage(username, messages[i].textContent, color);
@@ -117,13 +113,11 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             
             var startPos = contentStr.indexOf("http://");
             if (startPos >= 0) {
-                console.log("startPos: " + startPos);
                 var linkLength = 0;
                 var url = "";
                 while (contentStr[startPos + linkLength] !== ' ' && linkLength < contentStr.length)
                     linkLength++;
                 
-                console.log("linkLength: " + linkLength);
                 // create link element
                 url = contentStr.substring(startPos, startPos + linkLength);
                 var link = document.createElementNS("http://www.w3.org/2000/svg", "a");

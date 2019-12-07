@@ -49,7 +49,6 @@
         var users = xmlDoc.getElementsByTagName("user");
         document.getElementById('userList').innerHTML = "";
         for (var i = 0; i < users.length; i++) {
-          // console.log(users[i].getAttribute('name'));
           showUser(users[i].getAttribute('name'), users[i].getAttribute('picture'));
         }
       }
