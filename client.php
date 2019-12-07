@@ -81,7 +81,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         <!--logout button-->
         <br />
         <form action="logout.php" method="POST">
-            <input class="button" type="submit" id="showOnlineUsers" value="Show Online User List" onclick="showUsers(onlineUsers.html)" style="text-align: center" />
+            <button class="button" type="submit" id="showOnlineUsers" value="Show Online User List" onclick="showUsers(onlineUsers.html)" style="text-align: center"></button>
             <input class="button" type="submit" id="logoutButton" value="Logout" style="text-align: center" />
         </form>
 
