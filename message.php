@@ -87,6 +87,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             // create a string for the messages
             var i;
             for (i = prevMessageLen; i < messages.length; ++i) {
+                console.log("For loop inside update chat iteration " + i);
                 var username = messages[i].getAttribute("name");
                 var color = messages[i].getAttribute("color");
                 showMessage(username, messages[i].textContent, color);
@@ -120,13 +121,15 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             
             var startPos = contentStr.indexOf("http://");
             if (startPos >= 0) {
+                console.log("startPos: " + startPos);
                 var linkLength= 0;
                 var url = "";
                 while (contentStr[startPos + linkLength] !== ' ')
                     linkLength++;
                 
+                console.log("linkLength: " + linkLength);
                 // create link element
-                url = contentStr.substr(startPos, linkLength);
+                url = contentStr.substring(startPos, linkLength);
                 var link = document.createElementNS("http://www.w3.org/2000/svg", "a");
                 link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', url);
                 link.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:show', "new");
@@ -135,12 +138,13 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 link.appendChild(document.createTextNode(linkStr));
 
                 // piece together the message string
-                var firstPart = contentStr.substr(0, startPos);
-                var lastPart = contentStr.substr(startPos + linkLength); 
+                var firstPart = contentStr.substring(0, startPos);
+                var lastPart = contentStr.substring(startPos + linkLength); 
 
                 contentNode.appendChild(document.createTextNode(firstPart));
                 contentNode.appendChild(link);
                 contentNode.appendChild(document.createTextNode(firstPart));
+                console.log("contentNode: " + contentNode);
             } else {
                 contentNode.appendChild(document.createTextNode(contentStr));                    
             }
