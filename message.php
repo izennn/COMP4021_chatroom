@@ -67,13 +67,8 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         function stateChange() {
             if (request.readyState == 4 && request.status == 200 && request.responseText) {
                 var xmlDoc;
-                try {
-                    xmlDoc =new XMLHttpRequest();
-                    xmlDoc.loadXML(request.responseText);
-                } catch (e) {
-                    var parser = new DOMParser();
-                    xmlDoc = parser.parseFromString(request.responseText, "text/xml");
-                }
+                var parser = new DOMParser();
+                xmlDoc = parser.parseFromString(request.responseText, "text/xml");
                 datasize = request.responseText.length;
                 updateChat(xmlDoc);
                 getUpdate();
@@ -100,7 +95,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 var nameNode = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
 
                 // Set the attributes and create the text
-                nameNode.setAttribute("x", 100);
+                nameNode.setAttribute("x", 20);
                 nameNode.setAttribute("dy", 20);
                 nameNode.setAttribute("style", "fill:" + color);
                 nameNode.appendChild(document.createTextNode(nameStr));
@@ -112,7 +107,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 var contentNode = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
 
                 // Set the attributes and create the text
-                contentNode.setAttribute("x", 200);
+                contentNode.setAttribute("x", 100);
                 contentNode.setAttribute("style", "fill:" + color);
 
                 // here, we need to add automatic hyperlink to the message if needed
