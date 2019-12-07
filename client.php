@@ -40,11 +40,11 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             }
         }
 
-        function showUsers() {
-            console.log("Open a window to display users!");
-            setTimeout(() => {
-                window.open("file://Users/izenhuang/Desktop/fall_19_20/COMP4021/labs/L07/chatroom/show_users.php", "Online Users");
-            }, 2000);
+        function showUsers(url) {
+            popup = window.open(url,'name','height=820,width=820');
+            if (window.focus)
+                popup.focus()
+            return false;
         }
         //]]>
         </script>
@@ -81,7 +81,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         <!--logout button-->
         <br />
         <form action="logout.php" method="POST">
-            <input class="button" type="submit" id="showOnlineUsers" value="Show Online User List" onclick="showUsers()" style="text-align: center" />
+            <input class="button" type="submit" id="showOnlineUsers" value="Show Online User List" onclick="showUsers(onlineUsers.html)" style="text-align: center" />
             <input class="button" type="submit" id="logoutButton" value="Logout" style="text-align: center" />
         </form>
 
