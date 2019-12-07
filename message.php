@@ -19,7 +19,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         var loadTimer = null;
         var request;
         var datasize;
-        var prevMessageLen;
+        var prevMessageLen = 0;
 
         function load() {
             console.log("load");
@@ -31,7 +31,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
             loadTimer = null;
             datasize = 0;
-            prevMessageLen = 0;
             
             var node = document.getElementById("chatroom");
             node.style.setProperty("visibility", "visible", null);
@@ -80,12 +79,13 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         }
 
         function updateChat(xmlDoc) {
-            console.log("update chat");
             //point to the message nodes
             var messages = xmlDoc.getElementsByTagName("message");
 
             // create a string for the messages
             var i;
+            console.log("update chat prevMessageLen: " + prevMessageLen);
+            if (prevMessageLen === undefined) prevMessageLen = 0;
             for (i = prevMessageLen; i < messages.length; ++i) {
                 console.log("For loop inside update chat iteration " + i);
                 var username = messages[i].getAttribute("name");
