@@ -85,7 +85,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             // create a string for the messages
             var i;
             console.log("update chat prevMessageLen: " + prevMessageLen);
-            if (prevMessageLen === undefined) prevMessageLen = 0;
+            // if (prevMessageLen === undefined) prevMessageLen = 0;
             for (i = prevMessageLen; i < messages.length; ++i) {
                 console.log("For loop inside update chat iteration " + i);
                 var username = messages[i].getAttribute("name");
