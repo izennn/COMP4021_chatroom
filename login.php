@@ -7,7 +7,10 @@ if (!isset($_POST["name"])) {
 }
 
 // furthermore, we must also check if there is a picture attached
-if (!isset($_POST["picture"])) {
+if (!isset($_POST['picture'])) {
+    var_dump($_FILES);
+    $err_msg = "No picture found under FILES";
+    var_dump($err_msg);
     header("Location: error.html");
     exit;
 }
@@ -37,8 +40,13 @@ $users_array = $xmlh->getChildNodes("users");
 // open a window to print the results of users
 $user_element = $xmlh->addElement($users_element, "user");
 
-// add the user name
+// add the user name & picture location
 $xmlh->setAttribute($user_element, "name", $_POST["name"]);
+$img_url = 'profile_pictures/' . $_FILES['picutre'];
+if (!move_uploaded_file($_FILES['picuitre']['tmp_name'], $image_url)) {
+    header("Location: error.html");
+}
+$xmlh->setAttribute($user_element, "picture", $img_url);
 
 // save the XML file
 $xmlh->saveFile();

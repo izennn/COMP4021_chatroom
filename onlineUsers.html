@@ -2,8 +2,72 @@
 <html>
   <head>
     <title>Online Users</title>
+    <style>
+      th {
+        padding: 2em;
+      }
+
+      td {
+        padding: 2em;
+      }
+
+      .picture {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+    <script>
+      var datasize;
+
+      function load() {
+        datasize = 0;
+        getUpdate();
+      }
+
+      function getUpdate() {
+        //request = new ActiveXObject("Microsoft.XMLHTTP");
+        request =new XMLHttpRequest();
+        request.onreadystatechange = stateChange;
+        request.open("POST", "server.php", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send("datasize=" + datasize);
+      }
+
+      function stateChange() {
+        if (request.readyState == 4 && request.status == 200 && request.responseText) {
+          var xmlDoc;
+          var parser = new DOMParser();
+          xmlDoc = parser.parseFromString(request.responseText, "text/xml");
+          datasize = request.responseText.length;
+          updateChat(xmlDoc);
+          getUpdate();
+        }
+      }
+
+      function updateChat(xmlDoc) {
+        //point to the message nodes
+        var users = xmlDoc.getElementsByTagName("user");
+        document.getElementById('userList').innerHTML = "";
+        for (var i = 0; i < users.length; i++) {
+          // console.log(users[i].getAttribute('name'));
+          showUser(users[i].getAttribute('name'), users[i].getAttribute('picture'));
+        }
+      }
+
+      function showUser(nameStr, pictureUrl){
+        document.getElementById('userList').innerHTML = document.getElementById('userList').innerHTML + '<tr>' + '<td><img class="picture" src="' + pictureUrl  + '"/></td><td>' + nameStr + '</td>' + '</tr>';
+      }
+    </script>
   </head>
-  <body>
-    <div>Show online users!</div>
+  <body onload="load()">
+    <table id="onlineUsers">
+        <thead class="t-head" cellspacing="0" cellpadding="0">
+          <tr>
+            <th><strong>Profile Picture</strong></th>
+            <th><strong>User</strong></th>
+          </tr>
+        </thead>
+        <tbody id="userList"></tbody>
+      </table>
   </body>  
 </html>

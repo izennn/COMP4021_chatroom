@@ -40,8 +40,8 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             }
         }
 
-        function showUsers(url) {
-            popup = window.open(url,'name','height=820,width=820');
+        function showUsers() {
+            popup = window.open("./onlineUsers.html",'name','height=820,width=820');
             if (window.focus)
                 popup.focus()
             return false;
@@ -81,7 +81,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         <!--logout button-->
         <br />
         <form action="logout.php" method="POST">
-            <button class="button" type="submit" id="showOnlineUsers" value="Show Online User List" onclick="showUsers(onlineUsers.html)" style="text-align: center"></button>
+            <input class="button" type="button" id="showOnlineUsers" value="Show Online User List" onclick="showUsers()" style="text-align: center"></button>
             <input class="button" type="submit" id="logoutButton" value="Logout" style="text-align: center" />
         </form>
 
