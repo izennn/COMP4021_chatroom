@@ -40,11 +40,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             }
         }
 
-        function logout() {
-            // redirect to  logout.php
-            window.location.href = "./logout.php";
-        }
-
         function showUsers() {
             console.log("Open a window to display users!");
             setTimeout(() => {
@@ -85,8 +80,10 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         
         <!--logout button-->
         <br />
-        <input class="button" type="submit" id="showOnlineUsers" value="Show Online User List" onclick="showUsers()" style="text-align: center" />
-        <input class="button" type="submit" id="logoutButton" value="Logout" onclick="logout()" style="text-align: center" />
+        <form action="logout.php" method="POST">
+            <input class="button" type="submit" id="showOnlineUsers" value="Show Online User List" onclick="showUsers()" style="text-align: center" />
+            <input class="button" type="submit" id="logoutButton" value="Logout" style="text-align: center" />
+        </form>
 
     </body>
 </html>
