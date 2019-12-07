@@ -43,7 +43,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             var username = document.getElementById("username");
             if (username.value != "") {
                 //request = new ActiveXObject("Microsoft.XMLHTTP");
-                request =new XMLHttpRequest();
+                request = new XMLHttpRequest();
                 request.open("POST", "logout.php", true);
                 request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 request.send(null);
@@ -56,7 +56,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
         }
 
         function getUpdate() {
-            console.log("Getting Update");
             //request = new ActiveXObject("Microsoft.XMLHTTP");
             request = new XMLHttpRequest();
             request.onreadystatechange = stateChange;
@@ -67,7 +66,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
         function stateChange() {
             if (request.readyState == 4 && request.status == 200 && request.responseText) {
-                console.log('state change!')
                 var xmlDoc;
                 try {
                     xmlDoc =new XMLHttpRequest();
@@ -79,8 +77,6 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
                 datasize = request.responseText.length;
                 updateChat(xmlDoc);
                 getUpdate();
-            } else {
-                console.log("no stage change")
             }
         }
 
@@ -89,7 +85,7 @@ print "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             var messages = xmlDoc.getElementsByTagName("message");
 
             // create a string for the messages
-            for (var i = prevMessagelen; i < messages.length; ++i) {
+            for (var i = prevMessageLen; i < messages.length; ++i) {
                 var username = messages[i].getAttribute('name');
                 var color = messages[i].getAttribute('color');
                 showMessage(username, messages[i].textContent, color);
