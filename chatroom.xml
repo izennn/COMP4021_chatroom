@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <chatroom>
-  <users><user name="Nur" picture="Screenshot 2019-07-26 at 4.09.39 PM.png"/><user name="sdf" picture="profile_pictures/"/></users>
-  <messages/>
+	<users></users>
+	<messages></messages>
 </chatroom>
